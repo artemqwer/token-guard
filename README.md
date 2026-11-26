@@ -2,6 +2,8 @@
 
 **Spend tokens on evidence, not repetition.**
 
+Created by **shiyukura**.
+
 Token Guard is an adaptive execution skill for [OpenCode](https://opencode.ai/). It helps coding agents use smaller contexts, avoid repeated searches and reads, verify claims, and finish the whole task instead of stopping after the first patch.
 
 No arbitrary output cap. No skipped tests just to save tokens. No invented savings percentages.
@@ -116,4 +118,4 @@ Issues and pull requests are welcome. The best improvements include a concrete r
 
 ## License
 
-[MIT](LICENSE) © 2026 Artem
+[MIT](LICENSE) © 2026 shiyukura
