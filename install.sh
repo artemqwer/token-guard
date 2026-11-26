@@ -23,7 +23,7 @@ if [ "${1:-}" = "--auto" ]; then
   INSTRUCTIONS="$CONFIG/AGENTS.md"
   LINE='- For every nontrivial task (coding, debugging, research, configuration, or multiple steps), load and follow `token-guard` first. Simple stable answers need neither skills nor tools.'
   touch "$INSTRUCTIONS"
-  if ! grep -Fqx "$LINE" "$INSTRUCTIONS"; then
+  if ! grep -Fqx -- "$LINE" "$INSTRUCTIONS"; then
     printf '\n%s\n' "$LINE" >> "$INSTRUCTIONS"
     printf 'Enabled automatic activation in %s\n' "$INSTRUCTIONS"
   fi
