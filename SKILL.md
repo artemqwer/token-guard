@@ -23,7 +23,7 @@ Optimize evidence gathering, not answer quality. User requirements, project inst
 - For bugs, prefer a focused failing test, compiler, linter, or clipped CLI error over large source reads.
 - Reuse established facts. Never reread unchanged files, repeat successful searches, or refetch the same large output.
 - Run independent lookups in parallel. Use subagents only for broad or independent work; request conclusions with essential paths/lines.
-- Bound noisy output with filters/tails but preserve exit status (`set -o pipefail` for piped checks) and diagnostic lines.
+- Bound noisy output with filters/tails but preserve exit status (`set -o pipefail` for piped checks in POSIX shells) and diagnostic lines.
 - Stop when evidence is sufficient. Never repeat an identical search/read hoping for a different result; each call must answer a new question. After two unsuccessful strategies, report the blocker or change approach.
 
 ## Single-pass targeted edits

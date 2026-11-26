@@ -24,23 +24,35 @@ Agents often waste context by rediscovering the same file, rereading successful 
 
 ## Install
 
-Requires OpenCode V2 and Git.
+Requires OpenCode V2 and Git. The skill itself is platform-independent Markdown with no runtime or background process.
+
+### macOS and Linux
+
+Works on macOS and Linux distributions with a POSIX-compatible shell:
 
 ```sh
 git clone https://github.com/artemqwer/token-guard.git
 cd token-guard
-./install.sh
+./install.sh --auto
 ```
 
-The installer symlinks this directory into OpenCode's global skills directory, so updates only require `git pull`.
+### Windows
+
+Run in PowerShell:
+
+```powershell
+git clone https://github.com/artemqwer/token-guard.git
+Set-Location token-guard
+.\install.ps1 -Auto
+```
+
+The Windows installer uses a directory junction, so it does not require Developer Mode or an elevated Administrator shell.
+
+Installers link this directory into OpenCode's global skills directory, so updates only require `git pull`. The `--auto` / `-Auto` option enables automatic activation; omit it to install without changing `AGENTS.md`.
 
 ### Automatic activation
 
-OpenCode advertises the skill automatically for relevant tasks. To explicitly instruct your agent to load it for every nontrivial task:
-
-```sh
-./install.sh --auto
-```
+OpenCode advertises the skill automatically for relevant tasks. Automatic activation explicitly instructs your agent to load it for every nontrivial task.
 
 Or add this line to `~/.config/opencode/AGENTS.md`:
 
@@ -52,9 +64,18 @@ OpenCode reloads configuration automatically. No restart is needed.
 
 ### Project-only installation
 
+macOS / Linux:
+
 ```sh
 mkdir -p /path/to/project/.opencode/skills
 ln -s "$PWD" /path/to/project/.opencode/skills/token-guard
+```
+
+Windows PowerShell:
+
+```powershell
+New-Item -ItemType Directory -Force C:\path\to\project\.opencode\skills
+New-Item -ItemType Junction -Path C:\path\to\project\.opencode\skills\token-guard -Target $PWD
 ```
 
 ## Use
