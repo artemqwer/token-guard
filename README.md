@@ -4,7 +4,7 @@
 
 Created by **shiyukura**.
 
-Token Guard is an adaptive execution skill for [OpenCode](https://opencode.ai/). It helps coding agents use smaller contexts, avoid repeated searches and reads, verify claims, and finish the whole task instead of stopping after the first patch.
+Token Guard is an adaptive execution plugin for [OpenCode](https://opencode.ai/), with a skill-only fallback. It helps coding agents use smaller contexts, avoid repeated searches and reads, verify claims, and finish the whole task instead of stopping after the first patch.
 
 No arbitrary output cap. No skipped tests just to save tokens. No invented savings percentages.
 
@@ -24,9 +24,30 @@ Agents often waste context by rediscovering the same file, rereading successful 
 - **Finishes the job** — silently tracks requested outcomes and continues through edit → verify → correct until complete or genuinely blocked.
 - **Scales effort to risk** — a narrow fix gets a focused check; shared or risky changes can justify broader verification.
 
-## Install
+## Install the plugin (recommended)
 
-Requires OpenCode V2 and Git. The skill itself is platform-independent Markdown with no runtime or background process.
+Requires OpenCode V2, Git, and a Node.js package manager. The plugin loads the policy into every agent-loop model call automatically, so no skill invocation or `AGENTS.md` edit is needed.
+
+```sh
+git clone https://github.com/artemqwer/token-guard.git
+cd token-guard
+npm install
+```
+
+Add the absolute clone path to the `plugins` array in `~/.config/opencode/opencode.jsonc` on macOS/Linux, or `%USERPROFILE%\.config\opencode\opencode.jsonc` on Windows. Preserve your existing configuration:
+
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugins": ["/absolute/path/to/token-guard"]
+}
+```
+
+OpenCode loads and watches local plugins automatically. Updates require `git pull`; run your package manager's install command again if dependencies change. If you previously enabled automatic skill activation, remove that instruction to avoid loading the same policy twice.
+
+## Install the skill-only fallback
+
+Requires OpenCode V2 and Git. The fallback is platform-independent Markdown with no runtime or background process.
 
 ### macOS and Linux
 
@@ -82,7 +103,7 @@ New-Item -ItemType Junction -Path C:\path\to\project\.opencode\skills\token-guar
 
 ## Use
 
-Just work normally. You can also invoke it explicitly:
+With the plugin installed, just work normally; activation is automatic. With the skill fallback, you can also invoke it explicitly:
 
 ```text
 @token-guard fix the failing parser test without scanning unrelated files
@@ -108,9 +129,9 @@ For a useful comparison, run the same representative task in separate sessions w
 - It does not guarantee a fixed token reduction.
 - It does not replace necessary verification with brevity.
 - It does not ask for confirmation on routine reversible work.
-- It does not require a runtime, package install, API key, or background process.
+- The skill fallback does not require a runtime, package install, API key, or background process. The plugin requires only the documented OpenCode plugin dependency.
 
-The entire skill is one readable [`SKILL.md`](SKILL.md) file. Audit it before installing; adapt it to your workflow if needed.
+The policy remains one readable [`SKILL.md`](SKILL.md) file; the small TypeScript plugin loads it through OpenCode's model-request hook. Audit both before installing and adapt them to your workflow if needed.
 
 ## Contributing
 

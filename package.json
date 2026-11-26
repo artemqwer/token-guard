@@ -1,0 +1,37 @@
+{
+  "name": "opencode-token-guard",
+  "version": "0.1.0",
+  "description": "Adaptive token-efficient execution for OpenCode",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src",
+    "SKILL.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@opencode/plugin": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "typescript": "latest"
+  },
+  "license": "MIT",
+  "author": "shiyukura",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/artemqwer/token-guard.git"
+  },
+  "keywords": [
+    "opencode",
+    "plugin",
+    "ai-agents",
+    "token-optimization"
+  ]
+}
